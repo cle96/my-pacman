@@ -59,17 +59,8 @@ public class GameView extends View {
                 canvas.drawBitmap(coin.getBitMap(), coin.x, coin.y, paint);
             }
 
-
             super.onDraw(canvas);
         }
     }
 
-
-    public void directionTimer() {
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-            }
-        }, 0,2 * 60 * 1000);
-    }
 }

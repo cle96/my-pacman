@@ -146,6 +146,7 @@ public class Game {
                 enemy.direction = Orientation.values()[random.nextInt(4)];
                 enemy.timesMove = 10 + random.nextInt(10);
             }
+            gameView.invalidate();
         }
     }
 

@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 runOnUi(this);
             }
-        }, 0, 2 * 60 * 1000);
+        }, 0, 20);
 
     }
 
@@ -126,8 +126,9 @@ public class MainActivity extends AppCompatActivity {
     private Runnable Timer_tick = new Runnable() {
         @Override
         public void run() {
-            if (!game.gamePaused) {
+            if (!game.gamePaused && !game.gameOver) {
                 final int MOVE_SPEED = 5;
+                game.moveEnemyRandomly(MOVE_SPEED + 2);
                 switch (game.direction) {
                     case UP:
                         game.movePacmanUp(MOVE_SPEED);
@@ -142,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                         game.movePacmanRight(MOVE_SPEED);
                         break;
                 }
-                game.moveEnemyRandomly(MOVE_SPEED + 5);
+
             }
         }
     };
