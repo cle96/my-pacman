@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class MainActivity extends AppCompatActivity {
     GameView gameView;
@@ -74,17 +77,24 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                String buttonText = buttonPause.getText()+"";
-                if(buttonText.equals("Pause")){
+                String buttonText = buttonPause.getText() + "";
+                if (buttonText.equals("Pause")) {
                     game.gamePaused = true;
                     buttonPause.setText("Resume");
-                }else{
+                } else {
                     game.gamePaused = false;
                     gameView.invalidate();
                     buttonPause.setText("Pause");
                 }
             }
         });
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUi(this);
+            }
+        }, 0, 2 * 60 * 1000);
 
     }
 
@@ -108,4 +118,32 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void runOnUi(Runnable r) {
+        this.runOnUiThread(Timer_tick);
+    }
+
+    private Runnable Timer_tick = new Runnable() {
+        @Override
+        public void run() {
+            if (!game.gamePaused) {
+                final int MOVE_SPEED = 5;
+                switch (game.direction) {
+                    case UP:
+                        game.movePacmanUp(MOVE_SPEED);
+                        break;
+                    case DOWN:
+                        game.movePacmanDown(MOVE_SPEED);
+                        break;
+                    case LEFT:
+                        game.movePacmanLeft(MOVE_SPEED);
+                        break;
+                    case RIGHT:
+                        game.movePacmanRight(MOVE_SPEED);
+                        break;
+                }
+                game.moveEnemyRandomly(MOVE_SPEED + 5);
+            }
+        }
+    };
 }

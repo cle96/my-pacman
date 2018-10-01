@@ -59,25 +59,7 @@ public class GameView extends View {
                 canvas.drawBitmap(coin.getBitMap(), coin.x, coin.y, paint);
             }
 
-            if (!game.gamePaused) {
-                final int MOVE_SPEED = 5;
-                switch (game.direction) {
-                    case UP:
-                        game.movePacmanUp(MOVE_SPEED);
-                        break;
-                    case DOWN:
-                        game.movePacmanDown(MOVE_SPEED);
-                        break;
-                    case LEFT:
-                        game.movePacmanLeft(MOVE_SPEED);
-                        break;
-                    case RIGHT:
-                        game.movePacmanRight(MOVE_SPEED);
-                        break;
-                }
-                game.moveEnemyRandomly(MOVE_SPEED + 5);
-                directionTimer();
-            }
+
             super.onDraw(canvas);
         }
     }
@@ -87,8 +69,7 @@ public class GameView extends View {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-
             }
-        }, 2 * 60 * 1000);
+        }, 0,2 * 60 * 1000);
     }
 }
